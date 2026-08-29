@@ -2,6 +2,8 @@
 
 Reproducible code and non-restricted aggregate outputs for a bilateral retinal-AI failure-analysis study using BRSET v1.0.2.
 
+**Repository:** <https://github.com/nadiryounes/brset-fellow-eye-reliability>
+
 ## Scientific question
 
 The study asks whether output from the fellow eye provides incremental information for predicting own-eye model loss beyond a frozen own-eye probability-based reliability baseline. It does **not** test whether bilateral input improves disease classification, establish clinical utility, or provide external validation.

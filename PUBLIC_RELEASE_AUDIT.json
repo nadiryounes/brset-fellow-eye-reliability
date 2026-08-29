@@ -1,0 +1,15 @@
+{
+  "audit_boundaries": [
+    "No raw retinal image formats",
+    "No BRSET source metadata or patient-level CSV columns",
+    "No partitions, predictions, embeddings, fitted models, or checkpoints",
+    "No common secret patterns or absolute workstation paths",
+    "Required defensive gitignore rules present"
+  ],
+  "failures": [],
+  "files_scanned": 61,
+  "restricted_brset_content_found": false,
+  "schema_version": "public-release-audit-v1",
+  "secret_or_local_path_found": false,
+  "status": "PASS"
+}

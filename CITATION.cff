@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the repository and the BRSET dataset release."
+title: "BRSET fellow-eye reliability analysis code"
+type: software
+version: 1.0.0
+date-released: 2026-08-29
+license: MIT
+authors:
+  - family-names: Nadir
+    given-names: Younes
+    orcid: "https://orcid.org/0000-0001-7493-3792"
+  - family-names: Boukhdir
+    given-names: Khalid
+    orcid: "https://orcid.org/0000-0002-4758-7086"
+abstract: >-
+  Reproducible code for bilateral fellow-eye reliability analysis in retinal
+  artificial intelligence using BRSET v1.0.2. Credentialed BRSET data are not
+  included.
+keywords:
+  - retinal artificial intelligence
+  - fundus imaging
+  - bilateral imaging
+  - model reliability
+  - BRSET

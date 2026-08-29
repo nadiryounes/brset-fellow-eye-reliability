@@ -1,0 +1,4 @@
+endpoint,term,unevaluable_focus_eyes,design_column_constant_zero,coefficient_estimable,reported_robust_standard_error,primary_bootstrap_affected,confirmatory_conclusion_affected
+drusen,focus_unevaluable,0,True,False,7.999970895017796e-17,False,False
+increased_cup_disc,focus_unevaluable,0,True,False,2.795818012953129e-18,False,False
+diabetic_retinopathy,focus_unevaluable,0,True,False,,False,False

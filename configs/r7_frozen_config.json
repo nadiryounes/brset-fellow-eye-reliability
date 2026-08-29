@@ -1,0 +1,190 @@
+{
+  "schema_version": "R7-frozen-config-v1",
+  "freeze_date": "2026-08-29",
+  "source": {
+    "release": "BRSET v1.0.2",
+    "metadata_path": "data/BRSET_v1.0.2/label_brset.csv",
+    "image_dir": "data/BRSET_v1.0.2/fundus_photos",
+    "metadata_sha256": "4cd000ec1f651deb5cfb4f018ed1dec7a874da59a20c47f1e59a421d4a112adf"
+  },
+  "partition": {
+    "manifest_path": "r6_frozen_split/patient_partition.csv",
+    "manifest_sha256": "d8ac34c7a6303e39e8d18a761365490943d668aa781b552706b4fc2ce35d0ef5",
+    "development_patients": 5771,
+    "final_holdout_patients": 1924,
+    "development_label": "development",
+    "holdout_label": "final_holdout"
+  },
+  "endpoints": [
+    "drusen",
+    "increased_cup_disc",
+    "diabetic_retinopathy"
+  ],
+  "endpoint_hierarchy": [
+    "drusen",
+    "increased_cup_disc",
+    "diabetic_retinopathy"
+  ],
+  "laterality": {
+    "right_exam_eye": 1,
+    "left_exam_eye": 2,
+    "pair_order": [
+      "R",
+      "L"
+    ],
+    "signed_asymmetry": "right_minus_left"
+  },
+  "preprocessing": {
+    "input_size": 224,
+    "decode": "Pillow JPEG + ImageOps.exif_transpose + RGB",
+    "aspect_ratio": "symmetric_zero_letterbox_square_extra_right_or_bottom",
+    "resize_interpolation": "bilinear_antialias",
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ],
+    "augmentation": "none",
+    "horizontal_flip": false,
+    "center_crop": false
+  },
+  "model": {
+    "implementation": "torchvision.models.convnext_tiny",
+    "weights_enum": "ConvNeXt_Tiny_Weights.IMAGENET1K_V1",
+    "weight_url": "https://download.pytorch.org/models/convnext_tiny-983f1562.pth",
+    "expected_filename_hash_prefix": "983f1562",
+    "feature_definition": "features -> avgpool -> classifier[0] final normalization -> classifier[1] flatten; before classifier[2] linear",
+    "feature_dimension": 768,
+    "frozen": true,
+    "evaluation_mode": true
+  },
+  "disease_head": {
+    "estimator": "sklearn.linear_model.LogisticRegression",
+    "penalty": "l2",
+    "solver": "lbfgs",
+    "class_weight": null,
+    "fit_intercept": true,
+    "max_iter": 2000,
+    "tol": 1e-7,
+    "C_grid": [
+      0.01,
+      0.1,
+      1.0,
+      10.0
+    ],
+    "tie_tolerance": 1e-12,
+    "tie_preference": "smaller_C"
+  },
+  "cross_validation": {
+    "outer_folds": 5,
+    "inner_folds": 3,
+    "outer_seed": 20260901,
+    "inner_seed_base": 20260902,
+    "training_seed_base": 20260903,
+    "stratification": "drusen_four_state_patient_level",
+    "patient_order": "ascending_numeric_patient_id"
+  },
+  "calibration": {
+    "candidates": [
+      "temperature",
+      "platt"
+    ],
+    "selection_metric": "patient_mean_nll",
+    "temperature_bounds": [
+      0.05,
+      20.0
+    ],
+    "platt_slope_bounds": [
+      0.05,
+      20.0
+    ],
+    "platt_intercept_bounds": [
+      -10.0,
+      10.0
+    ],
+    "tie_tolerance": 1e-12,
+    "tie_preference": "temperature"
+  },
+  "probability": {
+    "primary_clip": 1e-6,
+    "sensitivity_clips": [
+      1e-5,
+      1e-7
+    ]
+  },
+  "reliability": {
+    "target": "eye_nll",
+    "sensitivity_target": "eye_brier",
+    "sensitivity_selection": "same_ridge_grid_criteria_and_tie_rules",
+    "primary_risk": "patient_mean_squared_error",
+    "own_logit_spline": {
+      "n_knots": 5,
+      "degree": 3,
+      "knots": "quantile",
+      "extrapolation": "linear",
+      "include_bias": false
+    },
+    "baseline_features": [
+      "own_calibrated_logit_spline",
+      "own_image_field",
+      "own_focus",
+      "laterality",
+      "own_camera"
+    ],
+    "augmented_addition": [
+      "fellow_calibrated_logit_spline"
+    ],
+    "ridge_alpha_grid": [
+      0.0,
+      0.01,
+      0.1,
+      1.0,
+      10.0
+    ],
+    "ridge_tie_tolerance": 1e-12,
+    "ridge_tie_preference": "larger_alpha",
+    "prediction_bounds": [
+      0.0,
+      13.815510557964274
+    ],
+    "ground_truth_state_predictor": false,
+    "epistemic_uncertainty_candidates": []
+  },
+  "thresholds": {
+    "classification": 0.5,
+    "risk_coverage": [
+      0.9,
+      0.8,
+      0.7
+    ],
+    "ece_bins": 10,
+    "ece_min_holdout_bin": 30
+  },
+  "inference": {
+    "unit": "patient",
+    "bootstrap_replicates": 10000,
+    "bootstrap_seed": 20261001,
+    "bootstrap_interval": "BCa",
+    "bootstrap_check_seeds": [
+      20261011,
+      20261021
+    ],
+    "primary_direction": "greater_than_zero",
+    "one_sided_alpha": 0.05,
+    "gee_family": "Gaussian",
+    "gee_link": "identity",
+    "gee_working_correlation": "exchangeable"
+  },
+  "firewall": {
+    "development_completion_marker": "r7_results/DEVELOPMENT_COMPLETE.json",
+    "pre_holdout_report": "r7_results/R7_PRE_HOLDOUT_VALIDATION.md",
+    "holdout_release_marker": "r7_results/HOLDOUT_RELEASED.json",
+    "holdout_execution_marker": "r7_results/HOLDOUT_EXECUTED.json",
+    "holdout_embedding_dir": "r7_artifacts/embeddings/final_holdout"
+  }
+}

@@ -1,0 +1,69 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*
+secrets*
+
+# Python environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Credentialed BRSET data: never commit
+data/
+physionet.org/
+fundus_photos/
+label_brset.csv
+labels.csv
+*.dcm
+*.jpg
+*.jpeg
+*.tif
+*.tiff
+
+# Patient-level partitions, predictions, embeddings, and fitted models
+r0_audit/
+r6_frozen_split/
+r7_artifacts/
+r7_results/
+r8_analysis/
+private_artifacts/
+artifacts/
+predictions/
+embeddings/
+checkpoints/
+*.npy
+*.npz
+*.pt
+*.pth
+*.pkl
+*.joblib
+
+# Build and temporary outputs
+build/
+dist/
+tmp/
+temp/
+*.tmp
+*.log
+*.zip

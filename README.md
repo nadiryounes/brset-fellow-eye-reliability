@@ -51,7 +51,10 @@ The frozen Torch/Torchvision versions may require a platform-compatible wheel so
 ## Reproduction stages
 
 1. Obtain BRSET v1.0.2 from PhysioNet.
-2. Place it locally at `data/BRSET_v1.0.2/`, or set `BRSET_ROOT`.
+2. Place it locally at `data/BRSET_v1.0.2/` (a symlink to the credentialed
+   location is acceptable). `BRSET_ROOT` is supported by the R0 audit and
+   partition generator, but ordinary R7 stages resolve the path stored in
+   `configs/r7_frozen_config.json`; see the exact path procedure below.
 3. Run the R0 integrity audit.
 4. Generate the deterministic patient partition locally. The patient-level manifest remains git-ignored.
 5. Run development stages and the pre-holdout firewall.
@@ -59,6 +62,10 @@ The frozen Torch/Torchvision versions may require a platform-compatible wheel so
 7. Run R8 analysis against the sealed local predictions.
 
 Exact commands and expected boundaries are in [REPRODUCIBILITY.md](REPRODUCIBILITY.md).
+
+The public release also records implementation and post-audit limitations in
+[CORRECTIONS_AND_LIMITATIONS.md](CORRECTIONS_AND_LIMITATIONS.md). These notes do
+not change the frozen scientific results.
 
 ## Frozen patient-level protocol
 

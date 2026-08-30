@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this software, please cite the repository and the BRSET dataset release."
 title: "BRSET fellow-eye reliability analysis code"
 type: software
-version: 1.0.0
+version: 1.0.1
 date-released: 2026-08-30
 license: MIT
 repository-code: "https://github.com/nadiryounes/brset-fellow-eye-reliability"

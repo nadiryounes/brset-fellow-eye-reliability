@@ -7,7 +7,7 @@
     "Required defensive gitignore rules present"
   ],
   "failures": [],
-  "files_scanned": 61,
+  "files_scanned": 62,
   "restricted_brset_content_found": false,
   "schema_version": "public-release-audit-v1",
   "secret_or_local_path_found": false,

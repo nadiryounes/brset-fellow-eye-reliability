@@ -105,5 +105,7 @@ Original source code in this repository is released under the MIT License. This 
 
 ## Authors
 
-- Younes Nadir — ORCID: <https://orcid.org/0000-0001-7493-3792>
-- Khalid Boukhdir — ORCID: <https://orcid.org/0000-0002-4758-7086>
+- Rachdi Mohamed — ORCID: <https://orcid.org/0000-0002-2590-9072>
+- Nadir Younes — ORCID: <https://orcid.org/0000-0001-7493-3792>
+- El Habib Benlahmar — ORCID: <https://orcid.org/0000-0001-7098-4621>
+- Azzouazi Mohamed — ORCID: <https://orcid.org/0009-0007-9800-3806>
